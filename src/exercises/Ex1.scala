@@ -5,6 +5,9 @@ abstract class MyList {
   def tail: MyList
   def isEmpty: Boolean
   def add(data:Int): MyList
+  def printElements: String
+  // polymorphic call
+  override def toString: String = "[" + printElements + "]"
 }
 
 object Empty extends MyList{
@@ -15,6 +18,8 @@ object Empty extends MyList{
   override def isEmpty: Boolean = true
 
   override def add(data: Int): MyList = new Cons(data, Empty)
+
+  override def printElements: String = ""
 }
 
 class Cons(h:Int, t:MyList) extends MyList {
@@ -25,6 +30,10 @@ class Cons(h:Int, t:MyList) extends MyList {
   override def isEmpty: Boolean = false
 
   override def add(data: Int): MyList = new Cons(data, this)
+
+  def printElements: String =
+    if(t.isEmpty) "" + h
+    else h + " " + t.printElements
 }
 
 object Ex1 extends App{
@@ -33,4 +42,6 @@ object Ex1 extends App{
   System.out.println(list.head)
   System.out.println(list.tail.head)
   System.out.println(list.tail.tail.head)
+
+  println(list.toString());
 }
